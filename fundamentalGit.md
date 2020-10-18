@@ -25,4 +25,4 @@
 - git log 変更履歴の確認
 - git diff ファイルの変更差分の確認
 - git remote add origin {url} リモートリポジトリの登録(url部分には、GitHubからコピペしてきたリポジトリのurlを貼り付け)
-- git push origin master ローカルリポジトリの内容をリモートリポジトリ(この場合masterリポジトリ)へ送信する
+- git push origin main ローカルリポジトリの内容をリモートリポジトリ(この場合mainリポジトリ)へ送信する
