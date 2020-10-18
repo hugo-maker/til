@@ -27,4 +27,4 @@
 - git remote add origin {url} リモートリポジトリの登録(url部分には、GitHubからコピペしてきたリポジトリのurlを貼り付け)
 - git push origin main ローカルリポジトリの内容をリモートリポジトリ(この場合mainリポジトリ)へ送信する
 - git branch -m master main ローカルリポジトリのデフォルトネームをmasterからmainに変更
-
+- git remote set-url origin {git@github.com:自分のリポジトリ名} sshで通信するようにする(毎回ユーザ名とパスワードを聞かれなくなる)
