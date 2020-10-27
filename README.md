@@ -1,3 +1,7 @@
-# til
+# TIL
 
->TodayILearn
+## TodayILearn
+日々の学習内容のアウトプット
+
+**注**CLangについて
+>参考 苦しんで覚えるC言語Kindle版 コードや文章は、書籍の内容を一部変更しています。
