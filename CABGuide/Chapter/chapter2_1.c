@@ -1,0 +1,8 @@
+#include <stdio.h>
+
+int main()
+{
+  printf("Just one small sterp for coders. One giant leap for");
+  printf(" programmers!\n");
+  return 0;
+}
