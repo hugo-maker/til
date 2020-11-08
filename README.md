@@ -12,6 +12,6 @@
 > Some of codes and texts may have been changed partly.
 
 **Caution** About LearnCtheHardWay
-> From Learn C the Hard Way by Zed A. Shaw (Kindle Edition)
-> All rights belong to its respective author Zed A. Shaw
+> From Learn C the Hard Way by Zed A. Shaw (Kindle Edition).
+> All rights belong to its respective author Zed A. Shaw.
 > Some of codes and texts may have been changed partly.
