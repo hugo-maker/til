@@ -3,7 +3,7 @@
 ## TodayILearn
 日々の学習内容のアウトプット
 
-**注**Cについて
+**注**KuruCについて
 >参考 苦しんで覚えるC言語Kindle版 コードや文章は、書籍の内容を一部変更しています。
 
 **Caution**About CABGuide
