@@ -4,7 +4,10 @@
 日々の学習内容のアウトプット
 
 **注** KuruCについて
->参考 苦しんで覚えるC言語Kindle版 コードや文章は、書籍の内容を一部変更しています。
+>参考 苦しんで覚えるC言語 著:MMGames (Kindle版) コードや文章は、書籍の内容を一部変更しています。
+
+**注** PointerPerfectについて
+>参考 新・標準プログラマーズライブラリ C言語ポインタ完全制覇 著:前橋 和弥 (Kindle版) コードや文章は、書籍の内容を一部変更しています。
 
 **Caution** About CABGuide
 > From C Programming Absolute Beginner's Guide Third Edition by Greg Perry and Dean Miller (Kindle Edition).
