@@ -1,0 +1,6 @@
+void (*draw_shape_func_table[])(Shape *shape)
+
+1 draw_shape_func_table is 
+2 draw_shape_func_table is array of
+3 draw_shape_func_table is array of pointer to
+4 draw_shape_func_table is array of pointer to function(Shape *shape) returning void
