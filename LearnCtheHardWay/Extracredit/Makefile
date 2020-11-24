@@ -2,8 +2,6 @@
 CC = gcc
 CFLAGS= -Wall -g
 
-all: test12 test13 test14 test15 extra_credit15 extra_credit15_function extra_credit15_while extra_credit15_all_array extra_credit15_all_pointer break_ex16 extra_credit16
-
 test12: test12.c
 test13: test13.c
 test14: test14.c
@@ -15,6 +13,8 @@ extra_credit15_all_array: extra_credit15_all_array.c
 extra_credit15_all_pointer: extra_credit15_all_pointer.c
 break_ex16: break_ex16.c
 extra_credit16: extra_credit16.c
+break_ex17: break_ex17.c my_strncpy.h my_strncpy.c
+my_strncpy_test: my_strncpy_test.c my_strncpy.c my_strncpy.h
 
 clean:
-	rm -f test12 test13 test14 test15 extra_credit15 extra_credit15_function extra_credit15_while extra_credit15_all_array extra_credit15_all_pointer break_ex16 extra_credit16
+	rm -f test12 test13 test14 test15 extra_credit15 extra_credit15_function extra_credit15_while extra_credit15_all_array extra_credit15_all_pointer break_ex16 extra_credit16 break_ex17 my_strncpy_test
