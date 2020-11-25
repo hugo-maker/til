@@ -6,7 +6,7 @@ int main(int argc, char *argv[])
   int ages[] = { 23, 43, 12, 89, 2 };
   char *names[] = {"Alan", "Frank", "Mary", "John", "Lisa"};
 
-  // safely get the size of age
+  // safely get the size of ages
   int count = sizeof(ages) / sizeof(int);
   int i = 0;
 

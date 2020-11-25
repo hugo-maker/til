@@ -67,7 +67,6 @@ void Database_load(struct Connection *conn)
   }
 }
 
-// nested struct
 struct Connection *Database_open(const char *filename, char mode)
 {
   /* Uninitialised value was created by a heap allocation ==6275==

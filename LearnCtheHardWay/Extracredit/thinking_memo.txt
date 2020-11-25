@@ -1,0 +1,41 @@
+pointer完全制覇4章のread_line.cを参考に
+
+read_line.cでは
+static で
+1 行(rows)を読み込むバッファ
+2 1 の先に割り当てられている領域のサイズを示すint型変数
+3 1 の中で現在文字が格納されている部分のサイズ
+4 1 の末尾に一文字追加する。必要に応じて1 の領域を拡張するfunction
+
+が宣言されている
+
+4 はex17ではDatabase_setに当たるのか?
+->多分違う.ex17では最初に領域を確保した後、領域が拡張されることはなかったはず.
+->今回のextracreditはその最初に確保する領域のサイズを自由に指定できるようにしろ、という内容である.
+
+read_line.c
+コマンドライン引数でファイル名を受け取り、ファイルから行を読み込む
+
+ex17.c
+コマンドライン引数で文字列を受け取り、DBに書き込む
+
+findは流用できそう
+
+ex17.c
+argvでサイズを指定
+->main関数内のargv[][]でmax_data, max_sizeに当てはめる
+
+そもそもex17の処理の流れ
+
+0 コマンドライン引数から、filename, action, を取得 
+1 Database_open(filename, action) でstruct Connection *conn の領域を確保
+2 コマンドライン引数から取得した入力(argv[3])をもとにidを設定
+-> idがmax_rowsより大きい場合、die()を呼んで強制終了
+3 actionによって分岐処理(switch)
+-> c Database_create, Database_write
+   g Database_get
+   s Database_set, Database_write
+   d Database_delete, Database_write
+   l Database_list
+   defaulet die()を呼んで強制終了
+
