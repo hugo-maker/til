@@ -9,6 +9,7 @@ struct Address
 {
   int id;
   int set;
+  int phonenumber;
   char *name;
   char *email;
 };
@@ -94,7 +95,7 @@ void die(const char *message, struct Connection *conn)
 
 void Address_print(struct Address *addr)
 {
-  printf("%d %s %s\n", addr->id, addr->name, addr->email);
+  printf("%d %d %s %s\n", addr->id, addr->phonenumber, addr->name, addr->email);
 }
 
 void Database_load(struct Connection *conn) // read the data from conn->file and storing it at conn->db.
@@ -119,6 +120,10 @@ void Database_load(struct Connection *conn) // read the data from conn->file and
     if (fread(&row->set, sizeof(int), 1, conn->file) != 1)
     {
       die("Failed to load set!", conn);
+    }
+    if (fread(&row->phonenumber, sizeof(int), 1, conn->file) != 1)
+    {
+      die("Failed to load phonenumber!", conn);
     }
 
     row->name = malloc(conn->db->MAX_DATA);
@@ -203,7 +208,7 @@ void Database_create(struct Connection *conn)
     char *b = (char *)malloc(conn->db->MAX_DATA);
     memset(b, 0, conn->db->MAX_DATA);
 
-    struct Address addr = {.id = i, .set = 0, .name = a, .email = b};
+    struct Address addr = {.id = i, .set = 0, .phonenumber = 0, .name = a, .email = b};
 
     conn->db->rows[i] = addr; 
   }
@@ -229,6 +234,10 @@ void Database_write(struct Connection *conn)
     {
       die("Failed to write set!", conn);
     }
+    if (fwrite(&((conn->db->rows[i]).phonenumber), sizeof(int), 1, conn->file) != 1)
+    {
+      die("Failed to write phonenumber!", conn);
+    }
     if (fwrite((conn->db->rows[i]).name, conn->db->MAX_DATA, 1, conn->file) != 1)
     {
       die("Failed to write name!", conn);
@@ -239,15 +248,10 @@ void Database_write(struct Connection *conn)
     }
   }
 
-  /*if (fflush(conn->file) == -1)
-  {
-    die("Cannot flush database!", conn);
-  }
-  */
   fflush(conn->file);
 }
 
-void Database_set(struct Connection *conn, int id, char *name, char *email)
+void Database_set(struct Connection *conn, int id, int phonenumber, char *name, char *email)
 {
   struct Address *addr = &conn->db->rows[id];
   if (addr->set)
@@ -256,6 +260,7 @@ void Database_set(struct Connection *conn, int id, char *name, char *email)
   }
 
   addr->set = 1;
+  addr->phonenumber = phonenumber;
 
   my_strncpy(addr->name, name, conn->db->MAX_DATA);
   my_strncpy(addr->email, email, conn->db->MAX_DATA);
@@ -283,7 +288,7 @@ void Database_delete(struct Connection *conn, int id)
   free(conn->db->rows[id].name);
   free(conn->db->rows[id].email);
 
-  struct Address addr = {.id = id, .set = 0, .name = a, .email = b};
+  struct Address addr = {.id = id, .set = 0, .phonenumber = 0, .name = a, .email = b};
   conn->db->rows[id] = addr;
 }
 
@@ -302,6 +307,7 @@ void Database_find(struct Connection *conn, char *keyword)
 {
   int i = 0;
   int count = 0;
+  int input_phonenumber = atoi(keyword);
 
   while (i < conn->db->MAX_ROWS)
   {
@@ -310,6 +316,10 @@ void Database_find(struct Connection *conn, char *keyword)
       if (conn->db->rows[i].set == 1)
       {
         if (strstr(conn->db->rows[i].name, keyword) != NULL || strstr(conn->db->rows[i].email, keyword) != NULL)
+        {
+          break;
+        }
+        else if (input_phonenumber == conn->db->rows[i].phonenumber)
         {
           break;
         }
@@ -329,10 +339,9 @@ void Database_find(struct Connection *conn, char *keyword)
 
   if (count == 0)
   {
-    printf("No match. Try some ogher words!\n");
+    printf("Try some other words\n");
   }
 }
-
 /**************************************************************************************************************************/
 
 int main(int argc, char *argv[])
@@ -347,7 +356,12 @@ int main(int argc, char *argv[])
   {
     id = atoi(argv[3]);
   }
-  
+  int phonenumber = 0;
+  if (argc == 7)
+  {
+    phonenumber = atoi(argv[4]);
+  }
+
   char *filename = argv[1];
   char action = argv[2][0];
   struct Connection *conn = Database_open(filename, action);
@@ -371,12 +385,12 @@ int main(int argc, char *argv[])
     }
     case 's': // case 'set'
     {
-      if (argc != 6)
+      if (argc != 7)
       {
-        die("Need id, name, email to set!", conn);
+        die("Need id, phonenumber, name, email to set!", conn);
       }
 
-      Database_set(conn, id, argv[4], argv[5]);
+      Database_set(conn, id, phonenumber, argv[5], argv[6]);
       Database_write(conn);
       break;
     }
