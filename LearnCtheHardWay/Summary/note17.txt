@@ -1,6 +1,7 @@
 valgrind for checking memory leak
 valgrind --leak-check=full {program-file} {arguments}
 
+ --track-origins=yes to see where uninitialised values come from
 
 following test is Valgrind error message
 
