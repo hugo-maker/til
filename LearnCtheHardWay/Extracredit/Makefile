@@ -18,7 +18,8 @@ my_strncpy_test: my_strncpy_test.c my_strncpy.c my_strncpy.h
 extra_credit17: extra_credit17.c my_strncpy.c my_strncpy.h
 extra_credit17_dynamic: extra_credit17_dynamic.c my_strncpy.c my_strncpy.h
 extra_credit17_anotherAddress: extra_credit17_anotherAddress.c my_strncpy.c my_strncpy.h
+extra_credit17_global: extra_credit17_global.c my_strncpy.c my_strncpy.h
 
 
 clean:
-	rm -f test12 test13 test14 test15 extra_credit15 extra_credit15_function extra_credit15_while extra_credit15_all_array extra_credit15_all_pointer break_ex16 extra_credit16 break_ex17 my_strncpy_test extra_credit17 extra_credit17_dynamic extra_credit17_anotherAddress
+	rm -f test12 test13 test14 test15 extra_credit15 extra_credit15_function extra_credit15_while extra_credit15_all_array extra_credit15_all_pointer break_ex16 extra_credit16 break_ex17 my_strncpy_test extra_credit17 extra_credit17_dynamic extra_credit17_anotherAddress extra_credit17_global

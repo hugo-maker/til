@@ -1,13 +1,13 @@
 #!/bin/bash
 
 set -eu
-FILENAME=${1:-"./extra_credit17_anotherAddress"}
+FILENAME=${1:-"./extra_credit17_global"}
 DBNAME=${2:-"db.dat"}
 
 expect -c"
 set timeout 5
 
-spawn valgrind --quiet --leak-check=full \"${FILENAME}\" \"${DBNAME}\" c
+spawn valgrind --leak-check=full -s \"${FILENAME}\" \"${DBNAME}\" c
 
 expect \"MAX_ROWS: \"
 send \"10\n\"
