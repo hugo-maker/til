@@ -1,8 +1,8 @@
 # define variables
 CC = gcc
-CFLAGS= -Wall -g
+CFLAGS= -Wall -g 
 
-all: ex01 ex03 ex07 ex08 ex09 ex10 ex10_2 ex10_3 ex11 ex12 ex13 ex14 ex15 ex16 ex17 ex18
+all: ex01 ex03 ex07 ex08 ex09 ex10 ex10_2 ex10_3 ex11 ex12 ex13 ex14 ex15 ex16 ex17 ex18 ex19
 ex01: ex01.c
 ex03: ex03.c
 ex07: ex07.c
@@ -19,6 +19,7 @@ ex15: ex15.c
 ex16: ex16.c
 ex17: ex17.c
 ex18: ex18.c
+ex19: ex19.c dbg.h
 
 clean:
-	rm -f ex01 ex03 ex07 ex08 ex09 ex10 ex10_2 ex10_3 ex11 ex12 ex13 ex14 ex15 ex16 ex17 ex18
+	rm -f ex01 ex03 ex07 ex08 ex09 ex10 ex10_2 ex10_3 ex11 ex12 ex13 ex14 ex15 ex16 ex17 ex18 ex19
