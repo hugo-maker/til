@@ -26,37 +26,33 @@ typedef struct Person
   double income;
 } Person;
 
-void my_scanf(char *dest, size_t len)
+int my_scanf(char *buffer, size_t *len)
 {
-  size_t i;
+  int in = scanf("%31[^\n]%zn%*[^\n]", buffer, len);
+  check(in == 1, "Failed to read");
+  scanf("%*c");
 
-  for (i = 0; i < len; i++)
-  {
-    scanf(" %c", &dest[i]);
-  }
-
-  dest[len] = '\0';
+  return 0;
+error:
+  return 1;
 }
 
 int main(int argc, char *argv[])
 {
   Person you = {.age = 0};
   int i = 0;
-  char *in = NULL;
+  size_t first_len = 0;
+  size_t last_len = 0;
+  size_t *pfirst_len = &first_len;
+  size_t *plast_len = &last_len;
   char buffer[32];
   char *endptr;
 
-  /*printf("What is your First Name? ");
-  in = fgets(you.first_name, MAX_DATA - 1, stdin);
-  check(in != NULL, "Failed to read first name.");
-  */
-
   printf("What is your First Name? ");
-  my_scanf(you.first_name, MAX_DATA);
+  my_scanf(you.first_name, pfirst_len);
 
   printf("What is your Last Name? ");
-  in = fgets(you.last_name, MAX_DATA - 1, stdin);
-  check(in != NULL, "Failed to read last name.");
+  my_scanf(you.last_name, plast_len);
 
   // new version of get age
   //  '*' assignment-suppression character:
@@ -112,8 +108,8 @@ int main(int argc, char *argv[])
 
   printf("----- RESULTS -----\n");
 
-  printf("First Name: %s", you.first_name);
-  printf("Last Name: %s", you.last_name);
+  printf("First Name: %s Length: %zu\n", you.first_name, *pfirst_len);
+  printf("Last Name: %s Length: %zu\n", you.last_name, *plast_len);
   printf("Age: %ld\n", you.age);
   printf("Eyes: %s\n", EYE_COLOR_NAME[you.eyes]);
   printf("Income: %lf\n", you.income);
