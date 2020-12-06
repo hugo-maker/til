@@ -110,6 +110,88 @@ error:
   return -1;
 }
 
+int my_vfprintf(FILE *file, char const *fmt, va_list arg)
+{
+  int int_temp;
+  char char_temp;
+  char *string_temp;
+
+  int length = 0;
+  char ch = '\0';
+
+  char buffer[512];
+
+  while ((ch) = *fmt++)
+  {
+    if ('%' == ch)
+    {
+      switch ((ch) = *fmt++)
+      {
+        case '\0':
+        {
+          sentinel("Invalid format, you ended with %%.");
+          break;
+        }
+        case '%':
+        {
+          fputc('%', file);
+          length++;
+          break;
+        }
+        case 'c':
+        {
+          char_temp = va_arg(arg, int);
+          fputc(char_temp, file);
+          length++;
+          break;
+        }
+        case 's':
+        {
+          string_temp = va_arg(arg, char *);
+          fputs(string_temp, file);
+          length += strlen(string_temp);
+          break;
+        }
+        case 'd':
+        {
+          int_temp = va_arg(arg, int);
+          // itoa(int_temp, buffer, 10); linux doesn't have this function
+          sprintf(buffer, "%d", int_temp);
+          fputs(buffer, file);
+          length += strlen(buffer);
+          break;
+        }
+        default:
+        {
+          sentinel("Invalid format.");
+        }
+      }
+    }
+    else
+    {
+      putc(ch, file);
+      length++;
+    }
+  }
+
+  return length;
+  
+error:
+  return -1;
+}
+
+int my_printf(char const *fmt, ...)
+{
+  va_list arg;
+  int length;
+
+  va_start(arg, fmt);
+  length = my_vfprintf(stdout, fmt, arg);
+  va_end(arg);
+  return length;
+}
+
+
 int main(int argc, char *argv[])
 {
   char *first_name = NULL;
@@ -117,26 +199,36 @@ int main(int argc, char *argv[])
   char *last_name = NULL;
   int age = 0;
 
-  printf("What is your first name? ");
+  // printf("What is your first name? ");
+  my_printf("%s", "What is your first name? ");
   int rc = read_scan("%s", MAX_DATA, &first_name);
   check(rc == 0, "Failed first name.");
 
-  printf("What is your initial? ");
+  // printf("What is your initial? ");
+  my_printf("%s", "What is your initial? ");
   rc = read_scan("%c\n", &initial);
   check(rc == 0, "Failed initial.");
 
-  printf("What is your last name? ");
+  // printf("What is your last name? ");
+  my_printf("%s", "What is your last name? ");
   rc = read_scan("%s", MAX_DATA, &last_name);
   check(rc == 0, "Failed last name.");
 
-  printf("How old are you? ");
+  // printf("How old are you? ");
+  my_printf("%s", "How old are you? ");
   rc = read_scan("%d", &age);
 
-  printf("----- RESULT -----\n");
+  /* printf("----- RESULT -----\n");
   printf("First Name: %s", first_name);
   printf("Initial: '%c'\n", initial);
   printf("Last Name: %s", last_name);
   printf("Age: %d\n", age);
+  */
+  my_printf("%s", "------ RESULT ------\n");
+  my_printf("%s%s", "First name: ", first_name);
+  my_printf("%s'%c'%c", "Initial: ", initial, '\n');
+  my_printf("%s%s", "Last name: ", last_name);
+  my_printf("%s%d%c", "Age: ", age, '\n');
 
   free(first_name);
   free(last_name);
