@@ -2,7 +2,7 @@
 CC = gcc
 CFLAGS= -Wall -g 
 
-all: ex01 ex03 ex07 ex08 ex09 ex10 ex10_2 ex10_3 ex11 ex12 ex13 ex14 ex15 ex16 ex17 ex18 ex19 ex20 ex23 ex24 ex25
+all: ex01 ex03 ex07 ex08 ex09 ex10 ex10_2 ex10_3 ex11 ex12 ex13 ex14 ex15 ex16 ex17 ex18 ex19 ex20 ex23 ex24 ex25 ex26_main
 ex01: ex01.c
 ex03: ex03.c
 ex07: ex07.c
@@ -24,6 +24,7 @@ ex20: ex20.c dbg.h
 ex23: ex23.c dbg.h
 ex24: ex24.c dbg.h
 ex25: ex25.c dbg.h
+ex26_main: ex26_main.c read_line.h ex26_read_line.c dbg.h
 
 clean:
-	rm -f ex01 ex03 ex07 ex08 ex09 ex10 ex10_2 ex10_3 ex11 ex12 ex13 ex14 ex15 ex16 ex17 ex18 ex19 ex20 ex23 ex24 ex25
+	rm -f ex01 ex03 ex07 ex08 ex09 ex10 ex10_2 ex10_3 ex11 ex12 ex13 ex14 ex15 ex16 ex17 ex18 ex19 ex20 ex23 ex24 ex25 ex26_main
