@@ -5,13 +5,13 @@ PREFIX?=/usr/local
 SOURCES=$(wildcard src/**/*.c src/*.c)
 OBJECTS=$(patsubst %.c,%.o,$(SOURCES))
 
-TEST_SRC=$(wildcard tests/*_test.c)
+TEST_SRC=$(wildcard tests/*_tests.c)
 TESTS=$(patsubst %.c,%,$(TEST_SRC))
 
 PROGRAMS_SRC=$(wildcard bin/*.c)
 PROGRAMS=$(patsubst %.c,%,$(PROGRAMS_SRC))
 
-TARGET=build/libYOUR_LIBRARY.a
+TARGET=build/liblcthw.a
 SO_TARGET=$(patsubst %.a,%.so,$(TARGET))
 
 # The TARGET Build
@@ -20,7 +20,7 @@ all: $(TARGET) $(SO_TARGET) tests
 dev: CFLAGS=-g -Wall -Isrc -Wall -Wextra $(OPTFLAGS)
 dev: all
 
-$(TESTS): $(TARGET) $(SO_TARGET) -ldl # added -ldl option. Without -ldl, undefined reference to dlopen error will happen.
+$(TESTS): $(TARGET) $(SO_TARGET) -ldl
 
 $(TARGET): CFLAGS += -fPIC
 $(TARGET): build $(OBJECTS)

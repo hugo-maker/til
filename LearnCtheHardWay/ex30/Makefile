@@ -5,7 +5,7 @@ PREFIX?=/usr/local
 SOURCES=$(wildcard src/**/*.c src/*.c)
 OBJECTS=$(patsubst %.c,%.o,$(SOURCES))
 
-TEST_SRC=$(wildcard tests/*_test.c)
+TEST_SRC=$(wildcard tests/*_tests.c)
 TESTS=$(patsubst %.c,%,$(TEST_SRC))
 
 PROGRAMS_SRC=$(wildcard bin/*.c)
@@ -20,7 +20,7 @@ all: $(TARGET) $(SO_TARGET) tests
 dev: CFLAGS=-g -Wall -Isrc -Wall -Wextra $(OPTFLAGS)
 dev: all
 
-$(TESTS): $(TARGET) $(SO_TARGET)
+$(TESTS): $(TARGET) $(SO_TARGET) -ldl
 
 $(TARGET): CFLAGS += -fPIC
 $(TARGET): build $(OBJECTS)
