@@ -1,0 +1,19 @@
+# tag files
+*.tags
+
+# object files
+*.o
+
+# libraries
+*.a
+
+# shared objects
+*.so
+*.dll
+
+# debug files
+*.dat
+*.dSYM/
+
+# logfiles
+*.log
