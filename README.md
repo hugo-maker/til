@@ -13,6 +13,9 @@
 >参考 udemy講座 Git:はじめてのGitとGitHub 作成者:山浦 清透
 > https://www.udemy.com/course/intro\_git/
 
+**注** NewLinuxについて
+>参考 新しいLinuxの教科書 著:三宅英明;大角祐介 (Kindle版) コードや文章は、書籍の内容を一部変更しています。
+
 **注** git\_auto.sh について
 >参考 http://hayapenguin.com/it/programming/git-auto-push/
 > https://github.com/go12lim/UtilityTool

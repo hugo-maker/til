@@ -49,6 +49,9 @@ void *List_shift(List *list);
 // Does all the removal when you call List_pop or List_shift.
 void *List_remove(List *list, ListNode *node);
 
+int List_dump(List *list, const char *name);
+int List_split(List *list, int count, List **p_left, List **p_right);
+
 // Iterates over the elements in the list.
 // L = List, S = Start, M = Move?, V = Variable?
 #define LIST_FOREACH(L, S, M, V) ListNode *_node = NULL;\
