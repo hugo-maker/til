@@ -17,3 +17,6 @@
 
 # logfiles
 *.log
+
+# vim
+*.vim

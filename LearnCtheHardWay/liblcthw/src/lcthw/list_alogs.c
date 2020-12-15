@@ -16,4 +16,32 @@ procedure bubbleSort(A : list of sortable items)
     until not swapped
 end procedure
 
-int List_bubble_sort(List *words, )
+int List_bubble_sort(List *list, List_compare cmp)
+{
+  // see ex18
+  int temp = 0;
+  int i = 0;
+  int j = 0;
+  int count = List_count(list);
+
+  if (is_sorted(list) == 0)
+  {
+    goto FUNC_END;
+  }
+
+  for (i = 0; i < count; i++)
+  {
+    for (j = 0; j < count - 1; j++)
+    {
+      if (cmp(list[j], list[j + 1]) > 0)
+      {
+        temp = list[j + 1];
+        list[j + 1] = list[j];
+        list[j] = temp;
+      }
+    }
+  }
+
+FUNC_END: // fallthrough
+  return 0;
+}
