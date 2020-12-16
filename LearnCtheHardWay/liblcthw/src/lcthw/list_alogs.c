@@ -16,6 +16,10 @@ procedure bubbleSort(A : list of sortable items)
     until not swapped
 end procedure
 
+
+
+typedef int (*List_compare)(const char *s1, const char *s2);
+
 int List_bubble_sort(List *list, List_compare cmp)
 {
   // see ex18
@@ -24,13 +28,13 @@ int List_bubble_sort(List *list, List_compare cmp)
   int j = 0;
   int count = List_count(list);
 
-  if (is_sorted(list) == 0)
-  {
-    goto FUNC_END;
-  }
-
   for (i = 0; i < count; i++)
   {
+    if (is_sorted(list) == 0)
+    {
+      break;
+    }
+
     for (j = 0; j < count - 1; j++)
     {
       if (cmp(list[j], list[j + 1]) > 0)
@@ -42,6 +46,5 @@ int List_bubble_sort(List *list, List_compare cmp)
     }
   }
 
-FUNC_END: // fallthrough
   return 0;
 }
