@@ -1,32 +1,48 @@
 #include "lcthw/list_alogs.h"
 #include "lcthw/dbg.h"
 
+/*
 procedure bubbleSort(A : list of sortable items)
     n := length(A)
     repeat
         swapped := false
         for i := 1 to n-1 inclusive do
-            /* if this pair is out of order */
+            // if this pair is out of order
             if A[i-1] > A[i] then
-                /* swap them and remember something changed */
+                // swap them and remember something changed
                 swap(A[i-1], A[i])
                 swapped := true
             end if
         end for
     until not swapped
 end procedure
+*/
 
+typedef int (*List_compare)(const void *a, const void *b);
 
+int is_sorted(List *list)
+{
+  LIST_FOREACH(list, first, next, cur)
+  {
+    if (cur->next && strcmp(cur->value, cur->next->value) > 0)
+    {
+      debug("%s %s", (char *)cur->value, (char *)cur->next->value);
+      return 0;
+    }
+  }
 
-typedef int (*List_compare)(const char *s1, const char *s2);
+  return 1;
+}
 
 int List_bubble_sort(List *list, List_compare cmp)
 {
+  check(list != NULL, "Invalid list.");
   // see ex18
-  int temp = 0;
+  void *temp = NULL;
   int i = 0;
   int j = 0;
   int count = List_count(list);
+  check(count != 0, "list doesn't have any elements.");
 
   for (i = 0; i < count; i++)
   {
@@ -47,4 +63,7 @@ int List_bubble_sort(List *list, List_compare cmp)
   }
 
   return 0;
+
+error:
+  return 1;
 }
