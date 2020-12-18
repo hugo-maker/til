@@ -1,3 +1,0 @@
-stdout_2
-stdout_3
-stdout_3
