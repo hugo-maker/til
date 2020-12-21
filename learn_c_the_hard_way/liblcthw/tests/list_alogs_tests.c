@@ -20,7 +20,7 @@ List *create_words()
   return words;
 }
 
-/*
+
 int is_sorted(List *words)
 {
   LIST_FOREACH(words, first, next, cur)
@@ -34,7 +34,7 @@ int is_sorted(List *words)
 
   return 1;
 }
-*/
+
 
 char *test_bubble_sort()
 {
@@ -65,7 +65,7 @@ char *test_bubble_sort()
   return NULL;
 }
 
-/*
+
 char *test_merge_sort()
 {
   List *words = create_words();
@@ -82,14 +82,14 @@ char *test_merge_sort()
   List_destroy(words);
   return NULL;
 }
-*/
+
 
 char *all_tests()
 {
   mu_suite_start();
 
   mu_run_test(test_bubble_sort);
-  // mu_run_test(test_merge_sort);
+  mu_run_test(test_merge_sort);
 
   return NULL;
 }

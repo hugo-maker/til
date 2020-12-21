@@ -183,7 +183,7 @@ error:
 
 /*
  * Original list is modified to create split lists.
- * Once the split is complete, Old list will be  empty.
+ * Once the split is complete, Old list will be empty.
  */
 
 int List_split(List *list, int count, List **p_left, List **p_right)
