@@ -229,7 +229,7 @@ int List_dump(List *list, const char *name)
   LIST_FOREACH(list, first, next, cur)
   {
     check(cur != NULL, "Cannnot print NULL ListNode.");
-    printf("List(%s) Node(%d): %p\n", name, i++, cur->value);
+    printf("List(%s) Node(%d): %s\n", name, i++, (const char*)cur->value);
   }
 
   return 0;

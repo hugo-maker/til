@@ -3,74 +3,23 @@
 
 inline void ListNode_swap(ListNode *a, ListNode *b)
 {
+  check_mem(a);
+  check_mem(b);
   void *temp = a->value;
   a->value = b->value;
   b->value = temp;
+
+error:
+  return;
 }
-
-/*
-int List_bubble_sort(List *list, List_compare cmp)
-{
-  int sorted = 1;
-  
-  if (List_count(list) <= 1)
-  {
-    return 0; // already sorted
-  }
-
-  do
-  {
-    sorted = 1;
-    LIST_FOREACH(list, first, next, cur)
-    for (cur = list->first; cur != NULL; cur = cur->next)
-    {
-      if (cur->next)
-      {
-        if (cmp(cur->value, cur->next->value) > 0)
-        {
-          ListNode_swap(cur, cur->next);
-          sorted = 0;
-        }
-      }
-    }
-  } while (!sorted);
-
-  return 0;
-}
-*/
-
-/*
-for(i=0;i<data_count-1;i++)
-{
-  for(j=data_count-1;j>i;j--)
-  {
-    p = head;
-    for(k=0,p=head;k<j-1;k++)
-    {
-      back = p;	//1つ前のノードをbackに格納
-      p = p->next; //比較先のノードをpに格納
-      
-      //backとpを絶対値に関して比較
-      if(fabs(p->data)<fabs(back->data))
-      {
-        tmp = p->data;
-        p->data = back->data;
-        back->data = tmp;
-      }
-    }
-  }
-}
-*/
-
 
 int List_bubble_sort(List *list, List_compare cmp)
 {
+  check(list != NULL, "Invalid list.");
   int i = 0;
   int j = 0;
-  int k = 0;
 
   struct ListNode *cur;
-  cur = list->first;
 
   int count = List_count(list);
   if (count <= 1)
@@ -84,16 +33,12 @@ int List_bubble_sort(List *list, List_compare cmp)
     sorted = 1;
     for (j = count - 1; j > i; j--)
     {
-      cur = list->first;
-      for (k = 0, cur = list->first; k < j- 1; k++)
+      for (cur = list->first; cur->next != NULL; cur = cur->next)
       {
-        if (cur->next)
+        if (cmp(cur->value, cur->next->value) > 0)
         {
-          if (cmp(cur->value, cur->next->value) > 0)
-          {
-            ListNode_swap(cur, cur->next);
-            sorted = 0;
-          }
+          ListNode_swap(cur, cur->next);
+          sorted = 0;
         }
       }
     }
@@ -104,11 +49,19 @@ int List_bubble_sort(List *list, List_compare cmp)
   }
 
   return 0;
+
+error:
+  return 1;
 }
 
 inline List *List_merge(List *left, List *right, List_compare cmp)
 {
+  check(left != NULL, "Invalid list.");
+  check(right != NULL, "Invalid list.");
+
   List *result = List_create();
+  check(result != NULL, "List_create failed.");
+
   void *val = NULL;
 
   while (List_count(left) > 0 || List_count(right) > 0)
@@ -139,10 +92,14 @@ inline List *List_merge(List *left, List *right, List_compare cmp)
   }
 
   return result;
+
+error:
+  return NULL;
 }
 
 List *List_merge_sort(List *list, List_compare cmp)
 {
+  check(list != NULL, "Invalid list.");
   if (List_count(list) <= 1)
   {
     return list;
@@ -155,7 +112,10 @@ List *List_merge_sort(List *list, List_compare cmp)
   List_split(list, middle, &left, &right);
 
   left = List_merge_sort(left, cmp);
+  check(left != NULL, "List_merge_sort for left failed.");
+
   right = List_merge_sort(right, cmp);
+  check(right != NULL, "List_merge_sort for right failed.");
 
   List *merged = List_merge(left, right, cmp);
 
@@ -163,4 +123,7 @@ List *List_merge_sort(List *list, List_compare cmp)
   List_destroy(right);
 
   return merged;
+
+error:
+  return NULL;
 }

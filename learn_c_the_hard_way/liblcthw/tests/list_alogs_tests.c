@@ -52,6 +52,7 @@ char *test_bubble_sort()
   mu_assert(is_sorted(words),
       "Words should be sort if already bubble sorted.");
 
+  List_dump(words, "values");
   List_destroy(words);
 
   // should work on an empty list
