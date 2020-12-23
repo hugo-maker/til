@@ -16,6 +16,11 @@
 **注** new\_linuxについて
 >参考 新しいLinuxの教科書 著:三宅英明;大角祐介 (Kindle版) コードや文章は、書籍の内容を一部変更しています。
 
+**注** mechanism\_of\_linuxについて
+>参考 [試して理解] Linuxの仕組み ~実験と図解で学ぶOSとハードウェアの基礎知識 著:武内覚 (Kindle版)
+コードや文章は、書籍の内容を一部変更しています。
+
+
 **注** git\_auto.sh について
 >参考 http://hayapenguin.com/it/programming/git-auto-push/
 > https://github.com/go12lim/UtilityTool

@@ -11,6 +11,7 @@ List *create_words()
 {
   int i = 0;
   List *words = List_create();
+  check_mem(words);
 
   for (i = 0; i < NUM_VALUES; i++)
   {
@@ -18,6 +19,9 @@ List *create_words()
   }
 
   return words;
+
+error:
+  return NULL;
 }
 
 
