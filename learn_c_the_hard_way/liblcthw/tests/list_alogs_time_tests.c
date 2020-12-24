@@ -1,55 +1,7 @@
 #include "minunit.h"
 #include <lcthw/list_alogs.h>
+#include "lcthw/get_random_chars_array.h"
 #include <assert.h>
-#include <string.h>
-#include <time.h>
-
-#define NUM_VALUES 5
-
-char *values[NUM_VALUES];
-
-int my_rand(int min, int max)
-{
-  static int flag;
-  if (flag == 0)
-  {
-    srand((unsigned int)time(NULL));
-    rand();
-    flag = 1;
-  }
-  int ret = min + (int)(rand() * (max - min + 1.0) / (1.0 + RAND_MAX));
-  return ret;
-}
-
-char get_random_char_lower(void)
-{
-  const char CHARS[] = "abcdefghijklmnopqrstuvwxyz";
-  int index = my_rand(0, (strlen(CHARS)) - 1);
-  char c = CHARS[index];
-
-  return c;
-}
-
-char *get_random_chars_lower(int length)
-{
-  char chars[length + 1];
-  for (int i = 0; i < length; i++)
-  {
-    chars[i] = get_random_char_lower();
-  }
-
-  return chars;
-}
-
-void fill_values(char **values)
-{
-  int i = 0;
-  int length = 5;
-  for (i = 0; i < NUM_VALUES; i++)
-  {
-    values[i] = get_random_chars_lower(length);
-  }
-}
 
 List *create_words()
 {
