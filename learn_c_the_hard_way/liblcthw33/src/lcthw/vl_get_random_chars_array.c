@@ -1,4 +1,4 @@
-#include "lcthw/get_random_chars_array.h"
+#include "lcthw/vl_get_random_chars_array.h"
 #include "lcthw/dbg.h"
 
 int my_rand(int min, int max)
@@ -32,11 +32,11 @@ void get_random_chars_lower(int length, char *result)
   }
 }
 
-void fill_values(char **values)
+void fill_values(char **values, int num_values)
 {
   int i = 0;
   int length = 5;
-  for (i = 0; i < NUM_VALUES; i++)
+  for (i = 0; i < num_values; i++)
   {
     values[i] = malloc(sizeof(char) * (length + 1));
     check_mem(values[i]);
