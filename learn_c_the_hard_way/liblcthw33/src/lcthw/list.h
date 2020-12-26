@@ -21,7 +21,7 @@ typedef struct List
     ListNode *last;
 } List;
 
-//typedef int (*List_compare)(const void *a, const void *b);
+typedef int (*List_compare)(const void *a, const void *b);
 
 // Just creates the main List struct.
 List *List_create();
@@ -54,7 +54,7 @@ void *List_remove(List *list, ListNode *node);
 int List_dump(List *list, const char *name);
 int List_split(List *list, int count, List **p_left, List **p_right);
 
-//void List_insert_sorted(List *list, void *value, List_compare cmp);
+void List_insert_sorted(List *list, void *value, List_compare cmp);
 
 // Iterates over the elements in the list.
 // L = List, S = Start, M = Move?, V = Variable?

@@ -7,12 +7,12 @@ char *test1 = "test1 data";
 char *test2 = "test2 data";
 char *test3 = "test3 data";
 
-/*
-char *word1 = "abc";
-char *word2 = "def";
-char *word3 = "efg";
-char *word4 = "abc";
-*/
+
+char *word1 = "a";
+char *word2 = "ab";
+char *word3 = "abc";
+char *word4 = "a";
+
 
 char *test_create()
 {
@@ -145,36 +145,47 @@ char *test_dump()
   return NULL;
 }
 
-/*
+
 char *test_insert_sorted()
 {
   List_insert_sorted(list, word1, (List_compare)strcmp);
   mu_assert(List_first(list) == word1, "Wrong first value.");
-  //mu_assert(List_last(list) == word1, "Wrong last value.");
+  mu_assert(List_last(list) == word1, "Wrong first value.");
 
   List_insert_sorted(list, word2, (List_compare)strcmp);
-  mu_assert(List_last(list) == word2, "Wrong last value.");
+  mu_assert(List_last(list) == word2, "Wrong second value.");
 
   List_insert_sorted(list, word3, (List_compare)strcmp);
-  mu_assert(List_last(list) == word3, "Wrong last value.");
+  mu_assert(List_last(list) == word3, "Wrong third value.");
 
   List_insert_sorted(list, word4, (List_compare)strcmp);
+  mu_assert(List_first(list) == word1, "Wrong last value.");
   mu_assert(List_count(list) == 4, "Wrong count on push.");
+  
+  char *val = List_pop(list);
+  mu_assert(val == word3, "Wrong value on pop.");
 
-  List_dump(list, "wordlist");
-  List_clear(list);
+  val = List_pop(list);
+  mu_assert(val == word2, "Wrong value on pop.");
+
+  val = List_pop(list);
+  mu_assert(val == word1, "Wrong value on pop.");
+
+  val = List_pop(list);
+  mu_assert(val == word4, "Wrong value on pop.");
+  mu_assert(List_count(list) == 0, "Wrong count after pop.");
 
   return NULL;
 }
-*/
+
 
 char *all_tests()
 {
   mu_suite_start();
 
   mu_run_test(test_create);
-  //mu_run_test(test_insert_sorted);
   mu_run_test(test_push_pop);
+  mu_run_test(test_insert_sorted);
   mu_run_test(test_unshift);
   mu_run_test(test_dump);
   mu_run_test(test_split);

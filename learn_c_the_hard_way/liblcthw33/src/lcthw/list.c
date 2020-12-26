@@ -238,39 +238,53 @@ error:
   return 1;
 }
 
-/*
+
 void List_insert_sorted(List *list, void *value, List_compare cmp)
 {
   check(list != NULL, "Invalid list.");
   ListNode *node = calloc(1, sizeof(ListNode));
   check_mem(node);
-
-  int result;
+  ListNode *cur = NULL;
 
   node->value = value;
 
+  // if list is empty
   if (list->first == NULL)
   {
-    node->next = list->first;
     list->first = node;
     list->last = node;
   }
+  else if (cmp(list->first->value, node->value) >= 0)
+  {
+    node->next = list->first;
+    node->next->prev = node;
+    list->first = node;
+  }
   else
   {
-    LIST_FOREACH(list, first, next, cur)
+    cur = list->first;
+    while (cur->next != NULL && cmp(cur->next->value, node->value) < 0)
     {
-      result = cmp(cur->value, node->value);
-      if (result >= 0)
-      {
-        break;
-      }
+      cur = cur->next;
     }
-    node->next = cur->next; // something wrong with this line.
+    node->next = cur->next;
+
+    // if the new node is not inserted at the end of the list
+    if (cur->next != NULL)
+    {
+      node->next->prev = node;
+    }
+    // if the new node is inserted at the end of the list
+    else
+    {
+      list->last = node;
+    }
     cur->next = node;
-    list->count++;
+    node->prev = cur;
   }
+
+  list->count++;
 
 error:
   return;
 }
-*/
