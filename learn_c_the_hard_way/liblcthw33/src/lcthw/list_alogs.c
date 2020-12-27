@@ -127,3 +127,125 @@ List *List_merge_sort(List *list, List_compare cmp)
 error:
   return NULL;
 }
+
+void iterative_merge(ListNode *start1, ListNode *end1,
+    ListNode *start2, ListNode *end2, List_compare cmp) 
+{ 
+  check_mem(start1);
+  check_mem(end1);
+  check_mem(start2);
+  check_mem(end2);
+	// Making sure that first node of second list is higher. 
+	ListNode *temp = NULL; 
+	if (cmp(start1->value, start2->value) > 0)
+  { 
+		ListNode_swap(start1, start2); 
+		ListNode_swap(end1, end2); 
+	} 
+
+	// Merging remaining nodes 
+  ListNode *astart = start1;
+  ListNode *aend = end1;
+  ListNode *bstart = start2;
+  // ListNode *bend = end2; // unused bend
+  // below line is necessary?
+  // we can access list2->last->next or bend->next
+  ListNode *bendnext = end2->next;
+
+	while (astart != aend && bstart != bendnext) 
+  { 
+    if (cmp(astart->next->value, bstart->value) > 0)
+    { 
+			temp = bstart->next; 
+			bstart->next = astart->next; 
+			astart->next = bstart; 
+			bstart = temp; 
+		} 
+		astart = astart->next; 
+	} 
+  if (cmp(astart->value, aend->value) == 0)
+  {
+    astart->next = bstart; 
+  }
+	else
+  {
+    end2->value = end1->value;
+  }
+
+error:
+  return;
+} 
+
+void iterative_merge_sort(List *list) 
+{ 
+  check(list != NULL, "Invalid list.");
+  check(list->first != NULL, "Don't have first elements.");
+
+  ListNode *start1 = NULL;
+  ListNode *end1 = NULL;
+  ListNode *start2 = NULL;
+  ListNode *end2 = NULL;
+  // below line is necessary?
+  ListNode *prevend = NULL;
+
+  int length = List_count(list);
+
+	for (int gap = 1; gap < length; gap = gap * 2)
+  { 
+		start1 = list->first;
+		while (start1) 
+    { 
+			// If this is first iteration 
+			int is_first_sorted = 0; 
+      // Can use comparison operator here?
+			if (start1 == list->first) 
+      {
+				is_first_sorted = 1; 
+      }
+
+			// First part for merging 
+			int counter = gap; 
+			end1 = start1; 
+			while (--counter && end1->next) 
+      {
+				end1 = end1->next; 
+      }
+
+			// Second part for merging 
+			start2 = end1->next; 
+			if (!start2) 
+      {
+				break; 
+      }
+			counter = gap; 
+			end2 = start2; 
+			while (--counter && end2->next) 
+      {
+				end2 = end2->next; 
+      }
+
+			// To store for next iteration. 
+			ListNode *temp = end2->next; 
+
+			// Merging two parts. 
+			iterative_merge(start1, end1, start2, end2, (List_compare)strcmp); 
+
+			// Update head for first iteration, else append after previous list 
+			if (is_first_sorted) 
+      {
+				list->first = start1; 
+      }
+			else
+      {
+				prevend->next = start1; 
+      }
+
+			prevend = end2; 
+			start1 = temp; 
+		} 
+		prevend->next = start1; 
+	} 
+
+error:
+  return;
+} 

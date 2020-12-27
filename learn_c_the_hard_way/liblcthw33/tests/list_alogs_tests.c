@@ -88,6 +88,19 @@ char *test_merge_sort()
   return NULL;
 }
 
+// compile succeeded but words are not sorted after iterative merge sort.
+char *test_iterative_merge_sort()
+{
+  List *words = create_words();
+
+  iterative_merge_sort(words);
+  List_dump(words, "words list");
+
+  List_destroy(words);
+
+  return NULL;
+}
+
 
 char *all_tests()
 {
@@ -95,6 +108,7 @@ char *all_tests()
 
   mu_run_test(test_bubble_sort);
   mu_run_test(test_merge_sort);
+  mu_run_test(test_iterative_merge_sort);
 
   return NULL;
 }
