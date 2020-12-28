@@ -93,9 +93,11 @@ char *test_iterative_merge_sort()
 {
   List *words = create_words();
 
-  iterative_merge_sort(words);
-  List_dump(words, "words list");
+  List *res = iterative_merge_sort(words);
+  List_dump(res, "words list");
+  mu_assert(is_sorted(res), "Words are not sorted after iterative merge sort.");
 
+  List_destroy(res);
   List_destroy(words);
 
   return NULL;
