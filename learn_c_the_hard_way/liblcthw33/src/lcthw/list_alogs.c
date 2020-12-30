@@ -138,12 +138,16 @@ void iterative_merge(ListNode *start1, ListNode *end1,
 	// Making sure that first node of second list is higher. 
 	ListNode *temp = NULL; 
 
-  printf("--------------------------------------\n");
-  printf("start1 before swap: %s : %p : %p\n", (char *)start1->value, start1->value, start1);
-  printf("start2 before swap: %s : %p : %p\n", (char *)start2->value, start2->value, start2);
-  printf("end1 before swap: %s : %p : %p\n", (char *)end1->value, end1->value, end1);
-  printf("end2 before swap: %s : %p : %p\n", (char *)end2->value, end2->value, end2);
+  printf("-----Before swap-----\n");
+  printf("start1 before swap: %s : %p\n", (char *)start1->value, start1->value);
+  printf("start2 before swap: %s : %p\n", (char *)start2->value, start2->value);
+  printf("end1 before swap: %s : %p\n", (char *)end1->value, end1->value);
+  printf("end2 before swap: %s : %p\n", (char *)end2->value, end2->value);
+  printf("-----Before swap-----\n");
   putchar('\n');
+
+  printf("-----Cmp-----\n");
+  void *tmp;
 
 	if (cmp(start1->value, start2->value) > 0)
   { 
@@ -152,31 +156,42 @@ void iterative_merge(ListNode *start1, ListNode *end1,
         result);
 		//ListNode_swap(start1, start2);
 		//ListNode_swap(end1, end2);
-    void *tmp = start1->value;
+    tmp = start1->value;
     printf("tmp: %s %p\n", (char *)tmp, tmp);
     start1->value = start2->value;
     printf("start1: %s %p\n", (char *)start1->value, start1->value);
     start2->value = tmp;
     printf("start2: %s %p\n", (char *)start2->value, start2->value);
-
+	} 
+  
+  // Separate the cmp part. But still can't work correctly.
+  if (cmp(end1->value, end2->value) > 0)
+  {
     tmp = end1->value;
     printf("tmp: %s %p\n", (char *)tmp, tmp);
     end1->value = end2->value;
     printf("end1: %s %p\n", (char *)end1->value, end1->value);
     end2->value = tmp;
     printf("end2: %s %p\n", (char *)end2->value, end2->value);
-	} 
+  }
+ 
+  printf("-----Cmp-----\n");
+  putchar('\n');
 
-  printf("start1 after swap: %s : %p : %p\n", (char *)start1->value, start1->value, start1);
-  printf("start2 after swap: %s : %p : %p\n", (char *)start2->value, start2->value, start2);
-  printf("end1 after swap: %s : %p : %p\n", (char *)end1->value, end1->value, end1);
-  printf("end2 after swap: %s : %p : %p\n", (char *)end2->value, end2->value, end2);
+  printf("-----After swap-----\n");
+  printf("start1 after swap: %s : %p\n", (char *)start1->value, start1->value);
+  printf("start2 after swap: %s : %p\n", (char *)start2->value, start2->value);
+  printf("end1 after swap: %s : %p\n", (char *)end1->value, end1->value);
+  printf("end2 after swap: %s : %p\n", (char *)end2->value, end2->value);
+  printf("-----After swap-----\n");
+  putchar('\n');
 
 	// Merging remaining nodes 
+  printf("-----Merging remaining nodes-----\n");
   ListNode *astart = start1;
   ListNode *aend = end1;
   ListNode *bstart = start2;
-  // ListNode *bend = end2; // unused bend
+  ListNode *bend = end2;
   // below line is necessary?
   // we can access list2->last->next or bend->next
   ListNode *bendnext = end2->next;
@@ -200,6 +215,29 @@ void iterative_merge(ListNode *start1, ListNode *end1,
   {
     end2->value = end1->value;
   }
+  printf("-----Merging remaining nodes-----\n");
+  putchar('\n');
+
+  printf("-----End of iterative_merge-----\n");
+  printf("astart: %s\n", (char *)astart->value);
+  printf("aend: %s\n", (char *)aend->value);
+  if (bstart)
+  {
+    printf("bstart: %s\n", (char *)bstart->value);
+  }
+  printf("bend: %s\n", (char *)bend->value);
+  if (bendnext)
+  {
+    printf("bend->next: %s\n", (char *)bendnext->value);
+  }
+  printf("end1: %s\n", (char *)end1->value);
+  printf("end2: %s\n", (char *)end2->value);
+  if (bendnext)
+  {
+    printf("bend->next: %s\n", (char *)bendnext->value);
+  }
+  printf("-----End of iterative_merge-----\n");
+  putchar('\n');
 
 error:
   return;
@@ -222,8 +260,6 @@ List *iterative_merge_sort(List *list)
 	for (int gap = 1; gap < length; gap = gap * 2)
   { 
 		start1 = list->first;
-    printf("list_alogs.c:231 start1: %s\n", (char *)start1->value);
-    printf("list_alogs.c:232 list->first: %s\n", (char *)list->first->value);
 		while (start1) 
     { 
 			// If this is first iteration 
@@ -235,48 +271,46 @@ List *iterative_merge_sort(List *list)
       }
 
 			// First part for merging 
+      printf("-----First part for merging-----\n");
 			int counter = gap; 
 			end1 = start1; 
-      printf("list_alogs.c:246 end1: %s\n", (char *)end1->value);
-      printf("list_alogs.c:247 start1: %s\n", (char *)start1->value);
 			while (--counter && end1->next) 
       {
 				end1 = end1->next; 
+        printf("counter: %d\tend1: %s\n", counter, (char *)end1->value);
       }
-      printf("list_alogs.c:252 end1: %s\n", (char *)end1->value);
-      printf("list_alogs.c:253 end1: %p\n", end1);
-      printf("list_alogs.c:253 end1->next: %s\n", (char *)end1->next->value);
+      printf("-----First part for merging-----\n");
+      putchar('\n');
 
 			// Second part for merging 
+      printf("-----Second part for merging-----\n");
 			start2 = end1->next; 
-      printf("list_alogs.c:257 start2: %s\n", (char *)start2->value);
-      printf("list_alogs.c:258 end1->next: %s\n", (char *)end1->next->value);
 			if (!start2) 
       {
 				break; 
       }
 			counter = gap; 
 			end2 = start2; 
-      printf("list_alogs.c:265 end2: %s\n", (char *)end2->value);
-      printf("list_alogs.c:266 start2: %s\n", (char *)start2->value);
 			while (--counter && end2->next) 
       {
 				end2 = end2->next; 
+        printf("counter: %d\tend2: %s\n", counter, (char *)end2->value);
       }
-      printf("list_alogs.c:257 end2: %s\n", (char *)end2->value);
-      printf("list_alogs.c:258 end2->next: %s\n", (char *)end2->next->value);
+      printf("-----Second part for merging(if this line is not printed, start2 == NULL)-----\n");
+      putchar('\n');
 
 			// To store for next iteration. 
 			ListNode *temp = end2->next; 
 
 			// Merging two parts. 
-      printf("--------------------------------------\n");
-      printf("start1 passing to iterative_merge: %s : %p : %p\n", (char *)start1->value, start1->value, start1);
-      printf("start2 passing to iterative_merge: %s : %p : %p\n", (char *)start2->value, start2->value, start2);
-      printf("end1 passing to iterative_merge: %s : %p : %p\n", (char *)end1->value, end1->value, end1);
-      printf("end2 passing to iterative_merge: %s : %p : %p\n", (char *)end2->value, end2->value, end2);
-      printf("--------------------------------------------\n");
-      List_dump(list, "words before iterative merge");
+      printf("-----Passing to iterative_merge-----\n");
+      printf("gap :%d\n", gap);
+      printf("start1 passing to iterative_merge: %s : %p\n", (char *)start1->value, start1->value);
+      printf("start2 passing to iterative_merge: %s : %p\n", (char *)start2->value, start2->value);
+      printf("end1 passing to iterative_merge: %s : %p\n", (char *)end1->value, end1->value);
+      printf("end2 passing to iterative_merge: %s : %p\n", (char *)end2->value, end2->value);
+      printf("-----Passing to iterative_merge-----\n");
+      putchar('\n');
 			iterative_merge(start1, end1, start2, end2, (List_compare)strcmp); 
 
 			// Update head for first iteration, else append after previous list 
@@ -293,6 +327,23 @@ List *iterative_merge_sort(List *list)
 			start1 = temp; 
 		} 
 		prevend->next = start1; 
+    printf("-----Return from iterative_merge-----\n");
+    if (prevend)
+    {
+      printf("prevend: %s\n", (char *)prevend->value);
+    }
+    if (start1)
+    {
+      printf("start1: %s\n", (char *)start1->value);
+    }
+    if (prevend->next)
+    {
+      printf("prevend->next: %s\n", (char *)prevend->next->value);
+    }
+    printf("gap :%d\n", gap);
+    List_dump(list, "words after iterative merge");
+    printf("-----Return from iterative_merge-----\n");
+    putchar('\n');
 	} 
 
   return list;
