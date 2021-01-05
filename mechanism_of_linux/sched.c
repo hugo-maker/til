@@ -1,3 +1,11 @@
+/* 
+ * gnuplotを用いてグラフを描画
+ * x軸: 開始時点からの経過時間 y軸: プロセス番号
+ * gnuplot> plot '1core_1process.dat' using 2:1
+ *
+ * x軸: 開始時点からの経過時間 y軸: %単位の進捗
+ * gnuplot> plot '1core_1process.dat' using 2:3
+ */
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <time.h>
