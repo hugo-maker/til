@@ -47,6 +47,8 @@ char *test_get()
 {
   mu_assert(DArray_get(array, 0) == val1, "Wrong first value.");
   mu_assert(DArray_get(array, 1) == val2, "Wrong second value.");
+
+  return NULL;
 }
 
 char *test_remove()
@@ -96,7 +98,7 @@ char *test_push_pop()
 
   mu_assert(array->max == 1201, "Wrong max size.");
 
-  for (i = 999; i >= 0; i++)
+  for (i = 999; i >= 0; i--)
   {
     int *val = DArray_pop(array);
     mu_assert(val != NULL, "Should not get a NULL.");
@@ -117,6 +119,7 @@ char *all_tests()
   mu_run_test(test_get);
   mu_run_test(test_remove);
   mu_run_test(test_expand_contract);
+  printf("array->max: %d array->end: %d\n", array->max, array->end);
   mu_run_test(test_push_pop);
   mu_run_test(test_destroy);
 

@@ -50,7 +50,7 @@ error:
     return NULL;
 }
 
-static inline void *DArray_remove(DArray, *array, int i)
+static inline void *DArray_remove(DArray *array, int i)
 {
     void *el = array->contents[i];
     array->contents[i] = NULL;
