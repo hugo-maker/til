@@ -20,6 +20,9 @@
 >参考 [試して理解] Linuxの仕組み ~実験と図解で学ぶOSとハードウェアの基礎知識 著:武内覚 (Kindle版)
 コードや文章は、書籍の内容を一部変更しています。
 
+**注** tcp\_ip\_with\_linuxについて
+>参考 Linuxで動かしながら学ぶTCP/IPネットワーク入門 著:もみじあめ (Kindle版)
+コードや文章は、書籍の内容を一部変更しています。
 
 **注** git\_auto.sh について
 >参考 http://hayapenguin.com/it/programming/git-auto-push/
