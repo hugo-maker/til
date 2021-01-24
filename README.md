@@ -28,6 +28,10 @@
 >参考 Cの延長としてのC++入門 第2版 著:Programming Place (Kindle版)
 コードや文章は、書籍の内容を一部変更しています。
 
+**注** ezoe\_cppについて
+>参考 江添亮のC++入門(アスキードワンゴ) 著:江添亮 (Kindle版)
+コードや文章は、書籍の内容を一部変更しています。
+
 **注** git\_auto.sh について
 >参考 http://hayapenguin.com/it/programming/git-auto-push/
 > https://github.com/go12lim/UtilityTool

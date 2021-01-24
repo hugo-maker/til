@@ -19,6 +19,9 @@
 *.so
 *.dll
 
+# コンパイル済みヘッダーファイル
+*.gch
+
 # debug files
 *.dat
 *.dSYM/
