@@ -1,33 +1,6 @@
 // コンパイル時に all.h(コンパイル済みヘッダーファイルはall.h.gch) をインクルードする必要あり
 // g++ -std=c++17 -Wall --pedantic-error -include all.h <ソースファイル名> -o <実行ファイル名>
 
-template <typename Array>
-struct array_iterator
-{
-  Array &a;
-  std::size_t i;
-
-  array_iterator(Array &a, std::size_t i)
-    : a(a) ,i(i) {}
-
-  array_iterator &operator ++();
-  array_iterator &operator --();
-
-  typename Array::reference operator *()
-  {
-    return a[i];
-  }
-
-  /*
-  array_iterator & array_iterator::operator ++()
-  {
-    ++i;
-    return *this;
-  }
-  */
-
-};
-
 template <typename T, std::size_t N>
 struct array
 {
@@ -40,26 +13,6 @@ struct array
       storage[i] = u;
     }
   }
-
-  using iterator = array_iterator<array>;
-
-  iterator begin()
-  {
-    return array_iterator(*this, 0);
-  }
-
-  iterator end()
-  {
-    return array_iterator(*this, N);
-  }
-
-  /*
-  array_iterator & array_iterator::operator ++()
-  {
-    ++i;
-    return *this;
-  }
-  */
 
   using reference = T &;
   using const_reference = T const &;
@@ -121,12 +74,6 @@ int main()
 
   std::cout << a.front() << "\n"s;
   std::cout << a.back() << "\n"s;
-
-  auto iter = a.begin();
-
-  std::cout << *iter << "\n"s;
-  //++iter;
-  //std::cout << *iter << "\n"s;
 
   array<int, 10> b;
   b.fill(1);
