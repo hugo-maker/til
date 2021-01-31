@@ -264,6 +264,16 @@ struct array
   using reference = T &;
   using const_reference = T const &;
 
+  reference at(std::size_t n)
+  {
+    if (n >= size())
+    {
+      throw std::out_of_range("Error: Out of Range");
+    }
+
+    return storage[n];
+  }
+
   reference operator [] (std::size_t i)
   {
     return storage[i];
@@ -378,4 +388,19 @@ int main()
   std::cout << con_bool2 << "\n"s;
   std::cout << con_bool3 << "\n"s;
   std::cout << con_bool4 << "\n"s;
+
+  // at test
+  std::array<int, 1> at = {0};
+
+  try
+  {
+    at.at(1000) = 0;
+  }
+  catch(std::out_of_range &e)
+  {
+    std::cout << e.what();
+  }
+  std::cout << "\n"s;
+
+  std::cout << at[0] << "\n"s;
 }
