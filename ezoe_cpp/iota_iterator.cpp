@@ -20,6 +20,18 @@ struct iota_iterator
   {}
 
   // その他のコード
+
+  // 非const
+  reference operator *() noexcept
+  {
+    return value;
+  }
+  // const
+  const reference operator *() const noexcept
+  {
+    return value;
+  }
+
 };
 
 int main()
@@ -31,4 +43,16 @@ int main()
 
   // lastにiをコピー
   i = last;
+
+  // 非constなオブジェクト
+  iota_iterator non_const(0);
+  // 非const版のoperator *を呼びだす
+  int value = *non_const;
+  // 変更可
+  *non_const = 1;
+
+  // constなオブジェクト
+  iota_iterator immutable(0);
+  // const版のoperator *を呼び出す
+  int const_value = *immutable;
 }
