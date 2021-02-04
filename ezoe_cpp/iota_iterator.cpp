@@ -1,6 +1,7 @@
 // コンパイル時に all.h(コンパイル済みヘッダーファイルはall.h.gch) をインクルードする必要あり
 // g++ -std=c++17 -Wall --pedantic-error -include all.h <ソースファイル名> -o <実行ファイル名>
 
+
 template <typename T>
 struct iota_iterator
 {
@@ -30,6 +31,29 @@ struct iota_iterator
   const reference operator *() const noexcept
   {
     return value;
+  }
+
+  // 前置
+  iota_iterator &operator ++() noexcept
+  {
+    ++value;
+    return *this;
+  }
+  // 後置
+  iota_iterator operator ++(int) noexcept
+  {
+    auto temp = *this;
+    ++*this;
+    return temp;
+  }
+
+  bool operator ==(iota_iterator const &i) const noexcept
+  {
+    return value == i.value;
+  }
+  bool operator !=(iota_iterator const &i) const noexcept
+  {
+    return !(*this == i);
   }
 
 };
