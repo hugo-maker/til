@@ -1,5 +1,5 @@
 // コンパイル時に all.h(コンパイル済みヘッダーファイルはall.h.gch) をインクルードする必要あり
-// g++ -std=c++17 -Wall --pedantic-error -include all.h <ソースファイル名> -o <実行ファイル名>
+// g++ -std=c++20 -Wall --pedantic-error -include all.h <ソースファイル名> -o <実行ファイル名>
 
 template <typename T, typename Allocator = std::allocator<T>>
 class vector
@@ -59,12 +59,46 @@ public:
     deallocate();
   }
 
+  // イテレータのペアをとり、その参照する値で要素を初期化するコンストラクタ
+  template <typename InputIterator>
+  vector(InputIterator first, InputIterator last, const Allocator & = Allocator())
+  {
+    reserve(std::distance(first, last));
+    for (auto i = first; i != last; ++i)
+    {
+      push_back(*i);
+    }
+  }
+
+  // リスト初期化(std::vector<int> v = {1,2,3}のような書き方)に対応するためのコンストラクタ
+  vector(std::initializer_list<value_type> init, const Allocator & alloc = Allocator())
+    : vector(std::begin(init), std::end(init), alloc)
+  {}
+
   // コピー
   vector(const vector & x);
   vector & operator =(const vector & x);
 
   // push_back
-  void push_back(const T & x);
+  void push_back(const_reference value)
+  {
+    if (size() + 1 > capacity())
+    {
+      auto c = size();
+      if (c == 0)
+      {
+        c = 1;
+      }
+      else
+      {
+        c *= 2;
+      }
+
+      reserve(c);
+    }
+    construct(last, value);
+    ++last;
+  }
 
   // 容量確認
   size_type size() const noexcept
@@ -106,7 +140,8 @@ public:
 
     // 例外安全のため、関数を抜けるときに古いストレージを破棄する
     // std::scope_exitはc++20規格
-    std::scope_exit e( [&]{traits::deallocate(alloc, old_first, old_capacity);});
+    // このままだとcompile error
+    std::experimental::scope_exit e( [&]{traits::deallocate(alloc, old_first, old_capacity);});
 
     // 古いストレージから新しいストレージに要素をコピー構築
     // 実際にはムーブ構築
@@ -160,6 +195,32 @@ public:
         construct(last, value);
       }
     }
+  }
+
+  // shrink_to_fit vectorが予約しているメモリのサイズを実サイズに近づける
+  // reserveの実装と似ている
+  void shrink_to_fit()
+  {
+    if (size() == capacity())
+    {
+      return;
+    }
+
+    // 新しいストレージを確保
+    auto ptr = allocate(size());
+    // コピー
+    auto current_size = size();
+    for (auto raw_ptr = ptr, iter = beign(), iter_end = end(); iter != iter_end; ++iter, ++raw_ptr)
+    {
+      construct(raw_ptr, *iter);
+    }
+    // 破棄
+    clear();
+    deallocate();
+    // 新しいストレージを使用
+    first = ptr;
+    last = ptr + current_size;
+    reserved_last = last;
   }
 
 // 要素アクセス
@@ -278,6 +339,7 @@ public:
   {
     return const_reverse_iterator{first};
   }
+
 
 private:
 
