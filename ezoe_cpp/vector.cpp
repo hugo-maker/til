@@ -66,6 +66,7 @@ public:
     reserve(std::distance(first, last));
     for (auto i = first; i != last; ++i)
     {
+      // error: invalid type argument of unary '*' (have 'int')
       push_back(*i);
     }
   }
@@ -76,8 +77,65 @@ public:
   {}
 
   // コピー
-  vector(const vector & x);
-  vector & operator =(const vector & x);
+  vector(const vector & r)
+    // アロケータのコピー
+    : alloc(traits::select_on_container_copy_construction(r.alloc))
+  {
+    // コピー元の要素数を保持できるだけのストレージを確保
+    reverse(r.size());
+    // コピー元の要素をコピー構築
+    // destはコピー先, [src, last]はコピー元
+    for (auto dest = first, src = r.begin(), last = r.end();
+        src != last; ++dest, ++src)
+    {
+      construct(dest, *src);
+    }
+    last = first + r.size();
+  }
+
+  // コピー代入演算子
+  vector & operator =(const vector & r)
+  {
+    // 1. 自分自身への代入なら何もしない
+    if (this == &r)
+    {
+      return *this;
+    }
+
+    // 2. 要素数が同じならば
+    if (size() == r.size())
+    {
+      // 要素ごとにコピー代入
+      std::copy(r.begin(), r.end(), begin());
+    }
+    // 3. それ以外の場合で予約数が十分ならば
+    else if (capacity() >= r.size())
+    {
+      // 有効な要素はコピー
+      std::copy(r.begin(), r.begin() + r.size(), begin());
+      // 残りはコピー構築
+      for (auto src_iter = r.begin() + r.size(), src_end = r.end();
+          src_iter != src_end; ++src_iter, ++last)
+      {
+        construct(last, *src_iter);
+      }
+    }
+    // 4. それ以外の場合で予約数が不十分ならば
+    else
+    {
+      // 要素をすべて破棄
+      destory_all();
+      // 予約
+      reserve(r.size());
+      // コピー構築
+      for (auto src_iter = r.begin(), src_end = r.end(), dest_iter = begin();
+          src_iter != src_end; ++src_iter, ++dest_iter, ++last)
+      {
+        construct(dest_iter, *src_iter);
+      }
+    }
+    return *this;
+  }
 
   // push_back
   void push_back(const_reference value)
@@ -210,7 +268,7 @@ public:
     auto ptr = allocate(size());
     // コピー
     auto current_size = size();
-    for (auto raw_ptr = ptr, iter = beign(), iter_end = end(); iter != iter_end; ++iter, ++raw_ptr)
+    for (auto raw_ptr = ptr, iter = begin(), iter_end = end(); iter != iter_end; ++iter, ++raw_ptr)
     {
       construct(raw_ptr, *iter);
     }
@@ -413,7 +471,12 @@ private:
 
 int main()
 {
-  vector<int> v(10, 1);
-  v[2] = 99;
-  v.resize(5);
+  std::array<int, 5> a {1,2,3,4,5};
+  std::vector<int> b(std::begin(a), std::end(a));
+
+  std::vector<int> c = {1,2,3};
+
+  // vector<int> v(10, 1);
+  // v[2] = 99;
+  // v.resize(5);
 }
