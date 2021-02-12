@@ -3,9 +3,9 @@
 #include <assert.h>
 #include <string.h>
 
-char *values[] = { "XXXX", "1234", "abcd", "xjvef", "NDSS" };
+char *five_values[] = { "XXXX", "1234", "abcd", "xjvef", "NDSS" };
 
-#define NUM_VALUES 5
+#define NUM_FIVE_VALUES 5
 
 List *create_words()
 {
@@ -13,9 +13,9 @@ List *create_words()
   List *words = List_create();
   check_mem(words);
 
-  for (i = 0; i < NUM_VALUES; i++)
+  for (i = 0; i < NUM_FIVE_VALUES; i++)
   {
-    List_push(words, values[i]);
+    List_push(words, five_values[i]);
   }
 
   return words;
@@ -56,7 +56,7 @@ char *test_bubble_sort()
   mu_assert(is_sorted(words),
       "Words should be sort if already bubble sorted.");
 
-  List_dump(words, "values");
+  List_dump(words, "five_values");
   List_destroy(words);
 
   // should work on an empty list

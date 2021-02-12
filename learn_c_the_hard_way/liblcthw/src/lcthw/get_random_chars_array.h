@@ -7,8 +7,6 @@
 
 #define NUM_VALUES 5000
 
-char *values[NUM_VALUES];
-
 int my_rand(int min, int max);
 
 char get_random_char_lower(void);

@@ -4,6 +4,8 @@
 #include <math.h>
 #include <stdio.h>
 
+char **values;
+
 List *create_words_vl(int num_values)
 {
   int i = 0;

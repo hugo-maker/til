@@ -3,6 +3,8 @@
 #include "lcthw/get_random_chars_array.h"
 #include <assert.h>
 
+char *values[NUM_VALUES];
+
 List *create_words()
 {
   int i = 0;

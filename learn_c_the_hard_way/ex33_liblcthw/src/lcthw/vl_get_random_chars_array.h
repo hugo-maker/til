@@ -7,8 +7,6 @@
 
 #define MAX_NUM 10000
 
-char **values;
-
 int my_rand(int min, int max);
 
 char get_random_char_lower(void);
