@@ -1,5 +1,5 @@
 #include "minunit.h"
-#include <lcthw/list_alogs.h>
+#include "lcthw/list_alogs.h"
 #include "lcthw/get_random_chars_array.h"
 #include <assert.h>
 
