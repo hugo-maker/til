@@ -62,7 +62,7 @@ char * test_heapsort()
 
 char * test_merge_sort()
 {
-  return run_sort_test(DArray_mergesort, "merge_sort");
+  return run_sort_test(DArray_mergesort, "mergesort");
 }
 
 char * all_tests()
