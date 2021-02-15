@@ -16,8 +16,8 @@ typedef struct RadixMap
   size_t max;
   size_t end;
   uint32_t counter;
-  RMElement *contents;
-  RMElement *temp;
+  RMElement * contents;
+  RMElement * temp;
 } RadixMap;
 
 RadixMap * RadixMap_create(size_t max);
