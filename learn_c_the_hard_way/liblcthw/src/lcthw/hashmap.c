@@ -124,7 +124,7 @@ error:
 int Hashmap_set(Hashmap * map, void * key, void * data)
 {
   uint32_t hash = 0;
-  DArray * bucket = Hashmap_find_bucket(map, key, 1, &hash):
+  DArray * bucket = Hashmap_find_bucket(map, key, 1, &hash);
   check(bucket, "Error can not create bucket.");
 
   HashmapNode * node = Hashmap_node_create(hash, key, data);
