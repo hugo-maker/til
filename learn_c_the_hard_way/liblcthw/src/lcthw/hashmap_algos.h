@@ -1,5 +1,5 @@
-#ifndef hashmap_alogs_h
-#define hashmap_alogs_h
+#ifndef hashmap_algos_h
+#define hashmap_algos_h
 
 #include <stdint.h>
 

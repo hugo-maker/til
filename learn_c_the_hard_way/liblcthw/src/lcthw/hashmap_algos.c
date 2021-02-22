@@ -1,10 +1,10 @@
-#include "lcthw/hashmap_alogs.h"
+#include "lcthw/hashmap_algos.h"
 #include "lcthw/bstrlib.h"
 
 // setting taken from http://www.isthe.com/chongo/tech/comp/fnv/index.html#FNV-param
 
 const uint32_t FNV_PRIME = 1677619;
-cons uint32_t FNV_OFFSET_BASIS = 2166136261;
+const uint32_t FNV_OFFSET_BASIS = 2166136261;
 
 uint32_t Hashmap_fnv1a_hash(void * data)
 {
@@ -40,7 +40,7 @@ uint32_t Hashmap_adler32_hash(void * data)
 
 uint32_t Hashmap_djb_hash(void * data)
 {
-  bstring ss = (bstring)data;
+  bstring s = (bstring)data;
   uint32_t hash = 5381;
   int i = 0;
 
