@@ -3,6 +3,9 @@
 !*/
 !*.*
 
+# Makefileはtrackする
+!Makefile
+
 # tag files
 *.tags
 
@@ -28,3 +31,6 @@
 
 # logfiles
 *.log
+
+# 一時ファイル
+*.~
