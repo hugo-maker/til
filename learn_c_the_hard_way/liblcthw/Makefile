@@ -1,4 +1,4 @@
-CFLAGS=-g -O3 -Wall -Wextra -Isrc $(shell pkg-config --cflags libbsd) -rdynamic -DNDEBUG $(OPTFLAGS)
+CFLAGS=-g -O3 -Wall -Wextra -Isrc $(shell pkg-config --cflags libbsd) -rdynamic -DNDEBUG -lm $(OPTFLAGS)
 COMMON_LIBS= $(shell pkg-config --libs libbsd) -ldl $(OPTLIBS)
 LDLIBS=$(COMMON_LIBS)
 PREFIX?=/usr/local
@@ -18,10 +18,10 @@ SO_TARGET=$(patsubst %.a,%.so,$(TARGET))
 # The TARGET Build
 all: $(TARGET) $(SO_TARGET) tests
 
-dev: CFLAGS=-g -Wall -Wextra -Isrc $(shell pkg-config --clags libbsd) $(OPTFLAGS)
+dev: CFLAGS=-g -Wall -Wextra -Isrc -lm $(shell pkg-config --clags libbsd) $(OPTFLAGS)
 dev: all
 
-$(TESTS): $(TARGET) $(SO_TARGET) -ldl
+$(TESTS): $(TARGET) $(SO_TARGET) -ldl -lm
 
 $(TARGET): CFLAGS += -fPIC
 $(TARGET): build $(OBJECTS)
