@@ -16,12 +16,15 @@ TARGET=build/liblcthw.a
 SO_TARGET=$(patsubst %.a,%.so,$(TARGET))
 
 # The TARGET Build
-all: $(TARGET) $(SO_TARGET) tests
+all: $(TARGET) $(SO_TARGET) tests $(PROGRAMS)
 
 dev: CFLAGS=-g -Wall -Wextra -Isrc -lm $(shell pkg-config --clags libbsd) $(OPTFLAGS)
 dev: all
 
 $(TESTS): $(TARGET) $(SO_TARGET) -ldl -lm
+
+# PROGRAMS
+$(PROGRAMS): CFLAGS += $(TARGET)
 
 $(TARGET): CFLAGS += -fPIC
 $(TARGET): build $(OBJECTS)
@@ -42,7 +45,7 @@ tests: $(TESTS)
 
 # The Cleaner
 clean:
-	rm -rf build $(OBJECTS) $(TESTS)
+	rm -rf build $(OBJECTS) $(TESTS) $(PROGRAMS)
 	rm -f tests/tests.log
 	find . -name "*.gc*" -exec rm {} \;
 	rm -rf `find . -name "*.dSYM" -print`
