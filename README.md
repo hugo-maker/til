@@ -45,3 +45,8 @@
 > From Learn C the Hard Way by Zed A. Shaw (Kindle Edition).
 > All rights belong to its respective author Zed A. Shaw.
 > Some of codes and texts may have been changed partly.
+
+**Caution** About sams\_teach\_yourself\_cpp
+> From Sams Teach Yourself C++ in One Hour a Day, Eighth Edition
+> All rights belong to its respective author Siddhartha Rao and publisher Sams Publishing
+> Some of codes and texts may have been changed partly.
